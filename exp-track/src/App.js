@@ -6,12 +6,22 @@ import { useState } from "react";
 
 function App() {
   const [expenseDetails, setExpenseDetails] = useState([]);
+  const [description, setDescription] = useState("");
+  const [amount, setAmount] = useState("");
 
-  function addExpense(e) {}
+  function addExpense(newExpense) {
+    setExpenseDetails([...expenseDetails, newExpense]);
+  }
 
   return (
     <div className={"app-container"}>
-      <AddExpenseForm onAddExpense={expenseDetails} />
+      <AddExpenseForm
+        addExpense={addExpense}
+        description={description}
+        amount={amount}
+        setDescription={setDescription}
+        setAmount={setAmount}
+      />
       <ExpenseList />
       <Summary />
     </div>
