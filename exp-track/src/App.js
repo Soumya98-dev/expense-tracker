@@ -7,10 +7,19 @@ import { useState } from "react";
 function App() {
   const [expenseDetails, setExpenseDetails] = useState([]);
   const [description, setDescription] = useState("");
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(0);
+  const [category, setCategory] = useState('food');
 
   function addExpense(newExpense) {
     setExpenseDetails([...expenseDetails, newExpense]);
+  }
+
+  const deleteExpenses = (id) => {
+    setExpenseDetails(expenseDetails.filter((item) => item.id !== id));
+  };
+
+  const deleteAllExpenses = () => {
+    setExpenseDetails([]);
   }
 
   return (
@@ -21,8 +30,14 @@ function App() {
         amount={amount}
         setDescription={setDescription}
         setAmount={setAmount}
+        category={category}
+        setCategory={setCategory}
       />
-      <ExpenseList />
+      <ExpenseList
+        expenseDetails={expenseDetails}
+        deleteExpenses={deleteExpenses}
+        deleteAllExpenses={deleteAllExpenses}
+      />
       <Summary />
     </div>
   );
