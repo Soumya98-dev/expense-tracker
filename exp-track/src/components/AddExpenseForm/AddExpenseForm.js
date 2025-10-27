@@ -1,17 +1,18 @@
 import '../../App.css';
+import {useState} from "react";
 
-function AddExpenseForm({
-                          addExpense, description, category, setCategory,
-                          amount,
-                          setDescription,
-                          setAmount,
-                        }) {
+function AddExpenseForm({addExpense}) {
+
+  const [description, setDescription] = useState("");
+  const [amount, setAmount] = useState(0);
+  const [category, setCategory] = useState('Food');
+
   function handleSubmit(e) {
     e.preventDefault();
 
     const newExpense = {
       description: description,
-      amount: amount,
+      amount: Number(amount),
       category: category,
       id: Date.now(),
     };
@@ -19,7 +20,7 @@ function AddExpenseForm({
     addExpense(newExpense);
     setDescription("");
     setAmount(0);
-    setCategory('All');
+    setCategory('Food');
 
   }
 
@@ -47,10 +48,10 @@ function AddExpenseForm({
               onChange={changeAmount}
           />
           <select value={category} onChange={(e) => setCategory(e.target.value)}>
-            <option value="food">Food</option>
-            <option value="transport">Transport</option>
-            <option value="bills">Bills</option>
-            <option value="other">Other</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Bills">Bills</option>
+            <option value="Other">Other</option>
           </select>
           <button type="submit">Add Expense</button>
         </form>

@@ -3,12 +3,14 @@ import AddExpenseForm from "./components/AddExpenseForm/AddExpenseForm";
 import ExpenseList from "./components/ExpenseList/ExpenseList";
 import Summary from "./components/Summary/Summary";
 import { useState } from "react";
+import ExpenseFilter from "./components/ExpenseFilter";
 
 function App() {
+  //STATE FOR LIST OF ALL EXPENSES
   const [expenseDetails, setExpenseDetails] = useState([]);
-  const [description, setDescription] = useState("");
-  const [amount, setAmount] = useState(0);
-  const [category, setCategory] = useState('food');
+
+  //STATE FOR CURRENTLY SELECTED FILTER
+  const [filterCategory, setFilterCategory] = useState('All');
 
   function addExpense(newExpense) {
     setExpenseDetails([...expenseDetails, newExpense]);
@@ -22,23 +24,23 @@ function App() {
     setExpenseDetails([]);
   }
 
+  //Filter by Category part
+  const filteredItems = filterCategory === 'All' ? expenseDetails :
+      expenseDetails.filter((exp) => exp.category ===  filterCategory);
+
+  const totalAmount = expenseDetails.reduce((sum, item) => sum + item.amount, 0);
+
   return (
     <div className={"app-container"}>
       <AddExpenseForm
         addExpense={addExpense}
-        description={description}
-        amount={amount}
-        setDescription={setDescription}
-        setAmount={setAmount}
-        category={category}
-        setCategory={setCategory}
       />
       <ExpenseList
-        expenseDetails={expenseDetails}
+        expenseDetails={filteredItems}
         deleteExpenses={deleteExpenses}
-        deleteAllExpenses={deleteAllExpenses}
       />
-      <Summary />
+      <ExpenseFilter currentFilter={filterCategory} onChangeFilter={setFilterCategory} deleteAllExpenses={deleteAllExpenses}/>
+      <Summary size={expenseDetails.length} totalAmount={totalAmount}/>
     </div>
   );
 }
