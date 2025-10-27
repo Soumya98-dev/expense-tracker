@@ -25,9 +25,9 @@ Easily add, view, filter, and delete expenses — with a clean summary of your t
 
 <img src="./assets/img_1.png" width="600"/>
 
-###  Demo
-<video src="./assets/demo.mp4" width="600" controls></video>
+### Demo
 
+![App demo](./assets/demo.gif)
 ---
 
 ## Tech Stack
